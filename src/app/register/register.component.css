@@ -1,0 +1,71 @@
+.background {
+  overflow-y: hidden;
+}
+.background {
+  width: 100%;
+  height: 100vh;
+  background: url("https://images.ctfassets.net/co0pvta7hzrh/1HOajBVHsh7xunfUnjpDNE/c94d271e8f90a6bf6016fc1d275d7a74/e_commerce_registration_form_template_thumb.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: cover;
+  /* background-color: #08aeea;
+  background-image: linear-gradient(0deg, #08aeea 0%, #2af598 100%); */
+}
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 89vh;
+}
+.header {
+  background: transparent;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  margin-top: 30px;
+  width: 500px;
+  padding: 20px;
+  background: #fff;
+  backdrop-filter: blur(5px);
+}
+.card h1 {
+  color: #222;
+  font-weight: 600;
+}
+.card label {
+  font-size: 18px;
+  color: #222;
+  font-weight: 600;
+}
+input {
+  background-color: #222;
+  color: #fff;
+}
+input:focus {
+  background-color: #222;
+  color: #fff;
+}
+input::placeholder {
+  font-size: 16px;
+  color: #fff;
+}
+form button {
+  width: 100%;
+  margin-top: 15px;
+  background-color: #444;
+  padding: 5px 0;
+  border-radius: 5px;
+  border: 0;
+  color: #fff;
+  cursor: pointer !important;
+}
+.toSign {
+  font-size: 14px;
+  text-decoration: none;
+  color: #111;
+  font-weight: 600;
+}

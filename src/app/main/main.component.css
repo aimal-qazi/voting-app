@@ -1,0 +1,248 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 3%;
+  background: #30a2ff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+.header a {
+  background-color: #ccc;
+  color: #000;
+}
+.header h2 {
+  font-weight: 800;
+  color: #fff;
+}
+.wrapper {
+  display: flex;
+}
+.box {
+  z-index: -1;
+  width: 200px;
+  height: 91vh;
+  display: flex;
+  justify-content: center;
+  background: #30a2ff;
+  align-items: flex-start;
+}
+.box .left {
+  margin-top: 30px;
+}
+.box button {
+  margin: 10px auto;
+  background-color: #eee;
+  border-radius: 0 10px 10px 0;
+  color: #000;
+  font-weight: 600;
+  width: 90%;
+  transition: 0.5s;
+}
+.box button:hover {
+  background-color: #666;
+  transform: scale(1.1);
+  color: #111;
+}
+.out {
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 5px;
+  background: #ccc;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.out:hover {
+  background: #222;
+}
+.forming {
+  border: 1px solid #333;
+  padding: 10px;
+  border-radius: 5px;
+}
+.forming button {
+  margin: 0 10px;
+}
+.toClose {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  padding: 10px 30px;
+  border-radius: 5px;
+  border: 2px solid #222;
+  background-color: #333;
+  color: #fff;
+  font-weight: 600;
+}
+.right-con {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  gap: 2rem;
+  max-width: 100%;
+  width: 100%;
+  height: 91vh;
+  background-color: #fffaf4;
+}
+.form-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.card {
+  width: 600px;
+  padding: 20px;
+}
+
+.header a {
+  padding: 5px 10px;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 5px;
+  background: #444;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+.table {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+table {
+  border-collapse: collapse;
+}
+table tr {
+  border: 2px solid #111;
+}
+tr td,
+tr th {
+  border: 1px solid #111;
+  padding: 10px 60px;
+}
+.userbtn {
+  position: absolute;
+  top: 5%;
+  left: 30px;
+}
+.model-1,
+.model-2,
+.model-3,
+.model-4,
+.model-5 {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background-color: #ccc;
+}
+.form-select {
+  margin-bottom: 10px;
+}
+.container .left-pos {
+  width: 350px;
+  height: 250px;
+  border: 2px solid #222;
+  padding: 15px;
+  border-radius: 5px;
+}
+.container .left-pos h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.container .left-pos input {
+  background-color: #222;
+  color: #fff;
+}
+.container .left-pos input::placeholder {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+.container .left-pos button {
+  background-color: #222;
+  width: 100%;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+}
+.container .right-pos {
+  width: 350px;
+  height: 250px;
+  border: 2px solid #222;
+  border-radius: 5px;
+  padding: 15px;
+}
+.container .right-pos h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.container .right-pos input {
+  background-color: #222;
+  color: #fff;
+}
+.container .right-pos input::placeholder {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+.container .right-pos button {
+  background-color: #222;
+  width: 100%;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+}
+.pos-btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 10px;
+}
+.row input {
+  background-color: #222;
+  color: #fff;
+}
+.row input::placeholder {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+}
+.row select {
+  background-color: #222;
+  color: #fff;
+  font-weight: 600;
+}
+.row select option {
+  background-color: #222;
+  color: #fff;
+  font-weight: 600;
+}
+.row button {
+  width: 100%;
+  background-color: #222;
+  color: #fff;
+  font-weight: 600;
+}
+.row .card {
+  border: 2px solid;
+}

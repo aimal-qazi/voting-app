@@ -1,0 +1,51 @@
+<div class="background">
+  <div class="header">
+    <h2>Lets Vote</h2>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="text-center">
+            <h1>Feel Free To Login</h1>
+          </div>
+          <hr />
+          <form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label"
+                >Email address</label
+              >
+              <input
+                formControlName="email"
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                placeholder="Enter Email Address"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Password</label
+              >
+              <input
+                formControlName="password"
+                type="password"
+                placeholder="Enter Password"
+                class="form-control"
+                id="exampleInputPassword1"
+              />
+            </div>
+            <button type="submit" [disabled]="loginForm.invalid" class="button">
+              Submit
+            </button>
+          </form>
+          <br />
+          <a routerLink="/register" class="toSign"
+            >New User ? Click to Sign-Up</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

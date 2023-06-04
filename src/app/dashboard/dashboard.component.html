@@ -1,0 +1,27 @@
+<div class="header">
+  <h1>Lets Vott</h1>
+</div>
+<a class="out" routerLink="/login">Log-Out</a>
+<div class="bg">
+  <div class="table container">
+    <table>
+      <thead>
+        <th colspan="6" style="text-align: center"><h4>Candidates</h4></th>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>City Position</th>
+          <th>Country Position</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let Can of gettingCandidate">
+          <td>{{ Can.name }}</td>
+          <td>{{ Can.city }}</td>
+          <td>{{ Can.addcity }}</td>
+          <td>{{ Can.addcountry }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

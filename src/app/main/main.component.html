@@ -1,0 +1,248 @@
+<div class="header">
+  <h2>Lets Vote</h2>
+  <a class="out" routerLink="/login">Log-Out</a>
+</div>
+<div class="wrapper">
+  <div class="left-con">
+    <div class="box">
+      <div class="left">
+        <button class="btn" (click)="show1()">Add Candidates</button>
+        <button class="btn" (click)="show2()">Add Positions</button>
+        <button class="btn" (click)="show3()">View Positions</button>
+        <button class="btn" (click)="show4()">View Candidates</button>
+        <button class="btn" (click)="show5()">View Users</button>
+      </div>
+    </div>
+  </div>
+  <div class="right-con">
+    <!-- Adding Candidates -->
+
+    <div class="container" [hidden]="!showAddCand">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="text-center">
+              <h1>Add Candidate</h1>
+            </div>
+            <hr />
+            <form
+              autocomplete="off"
+              [formGroup]="candidateForm"
+              (ngSubmit)="addingCand()"
+            >
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">NAME</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  placeholder="Enter Name"
+                  aria-describedby="emailHelp"
+                  formControlName="name"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">CITY</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  placeholder="Enter City"
+                  aria-describedby="emailHelp"
+                  formControlName="city"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Select City Position</label
+                >
+                <select
+                  *ngFor="let item of city"
+                  class="form-select"
+                  aria-label="Default select example"
+                  formControlName="addcity"
+                >
+                  <option disabled selected>Select Position</option>
+                  <option value="{{ item.name }}">{{ item.name }}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Select Country Position</label
+                >
+                <select
+                  *ngFor="let item of country"
+                  class="form-select"
+                  aria-label="Default select example"
+                  formControlName="addcountry"
+                >
+                  <option disabled selected>Select Position</option>
+                  <option value="{{ item.name }}">{{ item.name }}</option>
+                </select>
+              </div>
+              <div class="form-btn">
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                  [disabled]="candidateForm.invalid"
+                >
+                  ADD
+                </button>
+                <button
+                  class="btn btn-primary"
+                  (click)="showAddCand = !showAddCand"
+                >
+                  CLOSE
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Adding Positions -->
+
+    <div class="container" [hidden]="!showAddPos">
+      <div class="left-pos">
+        <h3>Add City Position</h3>
+        <form (ngSubmit)="toCity()" [formGroup]="cityForm" autocomplete="off">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">NAME</label>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              placeholder="Enter Name"
+              aria-describedby="emailHelp"
+              formControlName="name"
+            />
+          </div>
+          <div class="pos-btns">
+            <button class="btn" type="submit" [disabled]="cityForm.invalid">
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="right-pos">
+        <h3>Add Country Position</h3>
+        <form
+          (ngSubmit)="toCountry()"
+          [formGroup]="countryForm"
+          autocomplete="off"
+        >
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">NAME</label>
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              placeholder="Enter Name"
+              aria-describedby="emailHelp"
+              formControlName="name"
+            />
+          </div>
+          <div class="pos-btns">
+            <button class="btn" type="submit" [disabled]="countryForm.invalid">
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Show Positions -->
+
+    <div class="table container" [hidden]="!showViewPos">
+      <table>
+        <thead>
+          <th colspan="6" style="text-align: center"><h4>City Position</h4></th>
+          <tr>
+            <th>Position</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pos of city; let i = index">
+            <td>{{ pos.name }}</td>
+            <td><button class="btn" (click)="delPosCity(i)">Remove</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <th colspan="6" style="text-align: center">
+            <h4>Country Position</h4>
+          </th>
+          <tr>
+            <th>Position</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pos of country; let i = index">
+            <td>{{ pos.name }}</td>
+            <td>
+              <button class="btn btn-small" (click)="delPosCountry(i)">
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Show Candidates -->
+
+    <div class="table container" [hidden]="!showViewCand">
+      <table>
+        <thead>
+          <th colspan="6" style="text-align: center"><h4>Candidates</h4></th>
+          <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>City Position</th>
+            <th>Country Position</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of addingCandidate; let i = index">
+            <td>{{ item.name }}</td>
+            <td>{{ item.city }}</td>
+            <td>{{ item.addcity }}</td>
+            <td>{{ item.addcountry }}</td>
+            <td>
+              <button (click)="delCan(i)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Show User  -->
+
+    <div class="table container" [hidden]="!showViewUser">
+      <table>
+        <thead>
+          <th colspan="6" style="text-align: center"><h4>Login Users</h4></th>
+          <tr>
+            <th>#Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of addingUsers">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.password }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
