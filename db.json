@@ -29,6 +29,30 @@
       "email": "talha@talha.com",
       "password": "talha",
       "id": 5
+    },
+    {
+      "name": "random",
+      "email": "a@a",
+      "password": "a",
+      "id": 6
+    },
+    {
+      "name": "jawad",
+      "email": "jawad@jawad",
+      "password": "jw",
+      "id": 7
+    },
+    {
+      "name": "Ammar Bari",
+      "email": "bari@bari.com",
+      "password": "bari",
+      "id": 8
+    },
+    {
+      "name": "test",
+      "email": "test@test.com",
+      "password": "test",
+      "id": 9
     }
   ]
 }

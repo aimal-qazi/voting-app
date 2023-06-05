@@ -1,6 +1,6 @@
 <div class="header">
   <h2>Lets Vote</h2>
-  <a class="out" routerLink="/login">Log-Out</a>
+  <a routerLink="/login">Log-Out</a>
 </div>
 <div class="wrapper">
   <div class="left-con">
@@ -22,7 +22,7 @@
         <div class="col-md-6">
           <div class="card">
             <div class="text-center">
-              <h1>Add Candidate</h1>
+              <h2 class="addtitle">Add Candidate</h2>
             </div>
             <hr />
             <form
@@ -43,27 +43,32 @@
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">CITY</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  placeholder="Enter City"
-                  aria-describedby="emailHelp"
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
                   formControlName="city"
-                />
+                >
+                  <option value="" disabled selected hidden>Select city</option>
+                  <option *ngFor="let item of inCity" value="{{ item }}">
+                    {{ item }}
+                  </option>
+                </select>
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label"
                   >Select City Position</label
                 >
                 <select
-                  *ngFor="let item of city"
                   class="form-select"
                   aria-label="Default select example"
                   formControlName="addcity"
                 >
-                  <option disabled selected>Select Position</option>
-                  <option value="{{ item.name }}">{{ item.name }}</option>
+                  <option value="" disabled selected hidden>
+                    Select city position
+                  </option>
+                  <option *ngFor="let item of city" value="{{ item.name }}">
+                    {{ item.name }}
+                  </option>
                 </select>
               </div>
               <div class="mb-3">
@@ -71,20 +76,29 @@
                   >Select Country Position</label
                 >
                 <select
-                  *ngFor="let item of country"
                   class="form-select"
                   aria-label="Default select example"
                   formControlName="addcountry"
                 >
-                  <option disabled selected>Select Position</option>
-                  <option value="{{ item.name }}">{{ item.name }}</option>
+                  <option value="" disabled selected hidden>
+                    Select country position
+                  </option>
+                  <option *ngFor="let item of country" value="{{ item.name }}">
+                    {{ item.name }}
+                  </option>
                 </select>
               </div>
+              <p
+                *ngIf="candidateForm.controls['name'].errors?.['required'] || candidateForm.controls['city'].errors?.['required'] || candidateForm.controls['addcity'].errors?.['required'] || candidateForm.controls['addcountry'].errors?.['required']"
+              >
+                * All fields are required
+              </p>
               <div class="form-btn">
                 <button
                   class="btn btn-primary"
                   type="submit"
                   [disabled]="candidateForm.invalid"
+                  (click)="onAddCandidate()"
                 >
                   ADD
                 </button>
@@ -106,10 +120,12 @@
     <div class="container" [hidden]="!showAddPos">
       <div class="left-pos">
         <h3>Add City Position</h3>
+        <hr />
         <form (ngSubmit)="toCity()" [formGroup]="cityForm" autocomplete="off">
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">NAME</label>
             <input
+              [ngModel]="upcityname"
               type="text"
               class="form-control"
               id="exampleInputEmail1"
@@ -119,7 +135,11 @@
             />
           </div>
           <div class="pos-btns">
-            <button class="btn" type="submit" [disabled]="cityForm.invalid">
+            <button
+              class="btn btn-primary"
+              type="submit"
+              [disabled]="cityForm.invalid"
+            >
               Add
             </button>
           </div>
@@ -127,6 +147,7 @@
       </div>
       <div class="right-pos">
         <h3>Add Country Position</h3>
+        <hr />
         <form
           (ngSubmit)="toCountry()"
           [formGroup]="countryForm"
@@ -135,6 +156,7 @@
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">NAME</label>
             <input
+              [ngModel]="upcountryname"
               type="text"
               class="form-control"
               id="exampleInputEmail1"
@@ -144,7 +166,11 @@
             />
           </div>
           <div class="pos-btns">
-            <button class="btn" type="submit" [disabled]="countryForm.invalid">
+            <button
+              class="btn btn-primary"
+              type="submit"
+              [disabled]="countryForm.invalid"
+            >
               Add
             </button>
           </div>
@@ -160,13 +186,21 @@
           <th colspan="6" style="text-align: center"><h4>City Position</h4></th>
           <tr>
             <th>Position</th>
+            <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let pos of city; let i = index">
             <td>{{ pos.name }}</td>
-            <td><button class="btn" (click)="delPosCity(i)">Remove</button></td>
+            <td>
+              <button class="btn btn-light">Edit</button>
+            </td>
+            <td>
+              <button class="btn btn-light" (click)="delPosCity(i)">
+                Remove
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -177,6 +211,7 @@
           </th>
           <tr>
             <th>Position</th>
+            <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -184,7 +219,10 @@
           <tr *ngFor="let pos of country; let i = index">
             <td>{{ pos.name }}</td>
             <td>
-              <button class="btn btn-small" (click)="delPosCountry(i)">
+              <button class="btn btn-light">Edit</button>
+            </td>
+            <td>
+              <button class="btn btn-light" (click)="delPosCountry(i)">
                 Remove
               </button>
             </td>
@@ -204,7 +242,8 @@
             <th>City</th>
             <th>City Position</th>
             <th>Country Position</th>
-            <th>Delete</th>
+            <th>Votes</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -213,13 +252,23 @@
             <td>{{ item.city }}</td>
             <td>{{ item.addcity }}</td>
             <td>{{ item.addcountry }}</td>
+            <td>{{ item.vote }}</td>
             <td>
-              <button (click)="delCan(i)">Delete</button>
+              <div class="wrapper">
+                <button class="btn btn-light">Edit</button>
+                <button class="btn btn-light" (click)="delCan(i)">
+                  Delete
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
+    <!-- Editing Candidate -->
+
+    <!-- Editing Positoins -->
 
     <!-- Show User  -->
 
@@ -228,7 +277,7 @@
         <thead>
           <th colspan="6" style="text-align: center"><h4>Login Users</h4></th>
           <tr>
-            <th>#Id</th>
+            <th>Id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Password</th>

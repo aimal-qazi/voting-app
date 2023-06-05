@@ -19,7 +19,23 @@ export class MainComponent implements OnInit {
   showViewPos = false;
   showViewUser = false;
 
+  upcityname = '';
+  upcountryname = '';
+  editcityindex = 0;
+
   addingCandidate: any[] = [];
+  inCity = [
+    'Islamabad',
+    'Rawalpindi',
+    'Karachi',
+    'Sindh',
+    'Quatta',
+    'Peshawar',
+    'Nowshera',
+    'Gilgit',
+    'Kashmir',
+    'Balochistan',
+  ];
   city: any[] = [];
   country: any[] = [];
   addingUsers: any[] = [];
@@ -33,12 +49,16 @@ export class MainComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     dataService.getDataOfCandidates = this.addingCandidate;
+    this.addingCandidate = dataService.toGetCandidate;
+    this.city = dataService.toGetCity;
+    this.country = dataService.toGetCountry;
   }
   ngOnInit(): void {
     this.dataService.getData().subscribe(
       (data: any) => {
         for (let i = 0; i < data.length; i++) {
           this.addingUsers.push(data[i]);
+          this.dataService.getUsers.push(data[i]);
         }
       },
       (err) => {
@@ -50,6 +70,7 @@ export class MainComponent implements OnInit {
       city: new FormControl('', Validators.required),
       addcity: new FormControl('', Validators.required),
       addcountry: new FormControl('', Validators.required),
+      vote: new FormControl(0),
     });
     this.countryForm = this.formBuilder.group({
       name: new FormControl('', Validators.required),
@@ -60,19 +81,24 @@ export class MainComponent implements OnInit {
   }
   toCity() {
     const getCity = this.cityForm.getRawValue();
-    this.city.push(getCity);
+    this.dataService.toGetCity.push(getCity);
     this.cityForm.reset();
     alert('city position is been added in the position list');
   }
   toCountry() {
     const getCountry = this.countryForm.getRawValue();
-    this.country.push(getCountry);
+    this.dataService.toGetCountry.push(getCountry);
     this.countryForm.reset();
     alert('country position is been added in the position list');
   }
   addingCand() {
     const getCand = this.candidateForm.getRawValue();
-    this.addingCandidate.push(getCand);
+    this.dataService.toGetCandidate.push(getCand);
+    this.candidateForm.reset();
+  }
+  onAddCandidate() {
+    alert('candidate is been added');
+    this.showAddCand = false;
   }
   delPosCity(i: number) {
     this.city.splice(i, 1);

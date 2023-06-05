@@ -1,5 +1,5 @@
 <div class="header">
-  <h1>Lets Vott</h1>
+  <h1 routerLink="/login">Lets Vott</h1>
 </div>
 <a class="out" routerLink="/login">Log-Out</a>
 <div class="bg">
@@ -12,6 +12,8 @@
           <th>City</th>
           <th>City Position</th>
           <th>Country Position</th>
+          <th>Votes</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -20,6 +22,10 @@
           <td>{{ Can.city }}</td>
           <td>{{ Can.addcity }}</td>
           <td>{{ Can.addcountry }}</td>
+          <td>{{ Can.vote }}</td>
+          <td>
+            <button class="btn btn-light" (click)="toVote()">Vote</button>
+          </td>
         </tr>
       </tbody>
     </table>

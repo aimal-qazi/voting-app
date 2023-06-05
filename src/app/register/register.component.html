@@ -1,7 +1,4 @@
 <div class="background">
-  <div class="header">
-    <h2>Lets Vote</h2>
-  </div>
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -50,6 +47,11 @@
                 id="exampleInputPassword1"
               />
             </div>
+            <p
+              *ngIf="signupForm.controls['name'].errors?.['required'] || signupForm.controls['email'].errors?.['required'] || signupForm.controls['password'].errors?.['required']"
+            >
+              * All fields are required
+            </p>
             <button
               type="submit"
               [disabled]="signupForm.invalid"
@@ -60,7 +62,7 @@
           </form>
           <br />
           <a routerLink="/login" class="toSign"
-            >Already Member ? Click to Login</a
+            >Already Member ? Click to <span>Login</span></a
           >
         </div>
       </div>
