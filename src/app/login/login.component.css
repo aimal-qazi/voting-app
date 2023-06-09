@@ -69,3 +69,8 @@ span {
   color: #007bb4;
   font-weight: 600;
 }
+@media (max-width: 424px) {
+  .card {
+    width: 300px;
+  }
+}

@@ -18,12 +18,21 @@ export class MainComponent implements OnInit {
   showAddPos = false;
   showViewPos = false;
   showViewUser = false;
+  editCity = false;
+  editCountry = false;
+  showEditCityPos = false;
+  updateCityPos = '';
+  updateCityStatus = '';
+  updateCountryPos = '';
+  updateCountryStatus = '';
+  editCityIndex = 0;
+  editCountryIndex = 0;
+  candidatePos = '';
+  cityPos: string = '';
+  conPos: string = '';
 
-  upcityname = '';
-  upcountryname = '';
-  editcityindex = 0;
-
-  addingCandidate: any[] = [];
+  addingCityCandidate: any[] = [];
+  addingCountryCandidate: any[] = [];
   inCity = [
     'Islamabad',
     'Rawalpindi',
@@ -40,7 +49,8 @@ export class MainComponent implements OnInit {
   country: any[] = [];
   addingUsers: any[] = [];
 
-  candidateForm!: FormGroup;
+  CitycandidateForm!: FormGroup;
+  CountrycandidateForm!: FormGroup;
   countryForm!: FormGroup;
   cityForm!: FormGroup;
 
@@ -48,29 +58,29 @@ export class MainComponent implements OnInit {
     private dataService: DataService,
     private formBuilder: FormBuilder
   ) {
-    dataService.getDataOfCandidates = this.addingCandidate;
-    this.addingCandidate = dataService.toGetCandidate;
+    this.addingCityCandidate = dataService.toGetCityCandidate;
+    this.addingCountryCandidate = dataService.toGetCountryCandidate;
     this.city = dataService.toGetCity;
     this.country = dataService.toGetCountry;
   }
   ngOnInit(): void {
-    this.dataService.getData().subscribe(
-      (data: any) => {
-        for (let i = 0; i < data.length; i++) {
-          this.addingUsers.push(data[i]);
-          this.dataService.getUsers.push(data[i]);
-        }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-    this.candidateForm = this.formBuilder.group({
+    for (let i = 0; i < this.dataService.toGetSignUp.length; i++) {
+      const getData = this.dataService.toGetSignUp;
+      this.addingUsers.push(getData[i]);
+    }
+    console.log(this.addingUsers);
+
+    this.CitycandidateForm = this.formBuilder.group({
       name: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
       addcity: new FormControl('', Validators.required),
+      votes: new FormControl(0),
+    });
+    this.CountrycandidateForm = this.formBuilder.group({
+      name: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
       addcountry: new FormControl('', Validators.required),
-      vote: new FormControl(0),
+      votes: new FormControl(0),
     });
     this.countryForm = this.formBuilder.group({
       name: new FormControl('', Validators.required),
@@ -91,14 +101,20 @@ export class MainComponent implements OnInit {
     this.countryForm.reset();
     alert('country position is been added in the position list');
   }
-  addingCand() {
-    const getCand = this.candidateForm.getRawValue();
-    this.dataService.toGetCandidate.push(getCand);
-    this.candidateForm.reset();
+  addingCityCand() {
+    const getCand = this.CitycandidateForm.getRawValue();
+    this.dataService.toGetCityCandidate.push(getCand);
+    this.CitycandidateForm.reset();
+    this.cityPos = '';
+  }
+  addingCountryCand() {
+    const getCand = this.CountrycandidateForm.getRawValue();
+    this.dataService.toGetCountryCandidate.push(getCand);
+    this.CountrycandidateForm.reset();
+    this.conPos = '';
   }
   onAddCandidate() {
     alert('candidate is been added');
-    this.showAddCand = false;
   }
   delPosCity(i: number) {
     this.city.splice(i, 1);
@@ -106,8 +122,11 @@ export class MainComponent implements OnInit {
   delPosCountry(i: number) {
     this.country.splice(i, 1);
   }
-  delCan(i: number) {
-    this.addingCandidate.splice(i, 1);
+  delCityCan(i: number) {
+    this.addingCityCandidate.splice(i, 1);
+  }
+  delCountryCan(i: number) {
+    this.addingCityCandidate.splice(i, 1);
   }
   show1() {
     this.showAddCand = true;
@@ -144,4 +163,53 @@ export class MainComponent implements OnInit {
     this.showViewCand = false;
     this.showViewUser = true;
   }
+  editcitybox(i: number) {
+    this.editCity = true;
+    this.editCityIndex = i;
+    this.updateCityPos = this.dataService.toGetCityCandidate[i].addcity;
+    this.candidatePos = this.dataService.toGetCityCandidate[i].addcity;
+  }
+  // editcountrybox(i: number) {
+  //   this.editCountry = true;
+  //   this.editCountryIndex = i;
+  //   this.updateCountryPos =
+  //     this.dataService.toGetCountryCandidate[i].addcountry;
+  //   this.candidatePos = this.dataService.toGetCountryCandidate[i].addcountry;
+  // }
+  // updateCityPosition() {
+  //   let i = this.editCityIndex;
+  //   this.dataService.toGetCityCandidate[i].addcity = this.updateCityPos;
+  //   this.editCity = false;
+  //   this.editCityIndex = 0;
+  //   this.dataService.toGetCityCandidate.forEach((c) => {
+  //     if (c.addcity == this.candidatePos) {
+  //       c.addcity = this.updateCityPos;
+  //     }
+  //   });
+  //   this.updateUserArray(this.updateCityPos);
+  //   this.candidatePos = '';
+  // }
+  // updateCountryPosition() {
+  //   let i = this.editCountryIndex;
+  //   this.dataService.toGetCountryCandidate[i].addcountry =
+  //     this.updateCountryPos;
+  //   this.editCountry = false;
+  //   this.editCountryIndex = 0;
+  //   this.dataService.toGetCountryCandidate.forEach((c) => {
+  //     if (c.addcountry == this.candidatePos) {
+  //       c.addcountry = this.updateCountryPos;
+  //     }
+  //   });
+  //   this.updateUserArray(this.updateCountryPos);
+  //   this.candidatePos = '';
+  // }
+  // updateUserArray(newValue: any) {
+  //   this.dataService.toGetSignUp.forEach((u) => {
+  //     for (let i = 0; i < u.isVoted.length; i++) {
+  //       if (u.isVoted[i] == this.candidatePos) {
+  //         u.isVoted[i] = newValue.toString();
+  //       }
+  //     }
+  //   });
+  // }
 }

@@ -22,28 +22,18 @@ export class RegisterComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
+      countryVote: [[]],
+      cityVote: [[]],
+      isVoted: [[]],
     });
   }
 
   //signup functionality
   signup() {
-    this._http
-      .post<any>('http://localhost:3000/signup', this.signupForm.value)
-      .subscribe(
-        (res) => {
-          alert('User signup Successfully');
-          this.signupForm.reset();
-          this.router.navigate(['login']);
-        },
-        (err) => {
-          if (
-            this.signupForm.value.name === '' &&
-            this.signupForm.value.password === '' &&
-            this.signupForm.value.email === ''
-          ) {
-            alert(err);
-          }
-        }
-      );
+    const getData = this.signupForm.getRawValue();
+    this.usersData.toGetSignUp.push(getData);
+    alert('Register Successfully');
+    this.router.navigate(['/login']);
+    this.signupForm.reset();
   }
 }

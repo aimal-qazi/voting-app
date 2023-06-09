@@ -38,6 +38,7 @@
                   id="exampleInputPassword1"
                 />
               </div>
+              <input type="hidden" formControlName="isVoted" />
               <p
                 *ngIf="loginForm.controls['email'].errors?.['required'] || loginForm.controls['password'].errors?.['required'] "
               >

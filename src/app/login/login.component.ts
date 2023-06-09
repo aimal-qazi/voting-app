@@ -17,44 +17,35 @@ export class LoginComponent implements OnInit {
     private _http: HttpClient,
     private router: Router,
     private dataLog: DataService
-  ) {}
+  ) {
+    this.getLogged = dataLog.toGetLogin;
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
-
-    this.dataLog.getlog.push(this.getLogged);
   }
   login() {
-    this._http.get<any>('http://localhost:3000/signup').subscribe(
-      (res) => {
-        const user = res.find((a: any) => {
-          return (
-            a.email === this.loginForm.value.email &&
-            a.password === this.loginForm.value.password
-          );
-        });
-        if (user) {
-          alert('Login Successfully');
-          this.loginForm.reset();
-          this.router.navigate(['dashboard']);
-          this.getLogged.push(user);
-        } else if (
-          this.loginForm.value.email === 'admin' &&
-          this.loginForm.value.password === 'admin'
-        ) {
-          alert('Admin logged Successfully');
-          this.loginForm.reset();
-          this.router.navigate(['main']);
-        } else {
-          alert('Invalid');
-        }
-      },
-      (err) => {
-        alert('Invalid');
+    const getData = this.loginForm.getRawValue();
+    this.dataLog.getEmail.push(getData.email);
+    console.log(this.dataLog.getEmail);
+
+    this.dataLog.toGetLogin.push(getData);
+    this.loginForm.reset();
+    if (getData.email == 'admin' && getData.password == 'admin') {
+      alert('Admin Successfully');
+      this.router.navigate(['/main']);
+    }
+    for (let i = 0; i < this.dataLog.toGetSignUp.length; i++) {
+      if (
+        getData.email === this.dataLog.toGetSignUp[i].email &&
+        getData.password === this.dataLog.toGetSignUp[i].password
+      ) {
+        alert('login successfully');
+        this.router.navigate(['/dashboard']);
       }
-    );
+    }
   }
 }

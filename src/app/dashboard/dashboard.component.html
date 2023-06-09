@@ -1,30 +1,69 @@
 <div class="header">
   <h1 routerLink="/login">Lets Vott</h1>
+  <div class="btns">
+    <a routerLink="/login" class="btn btn-light">LogOut</a>
+  </div>
 </div>
-<a class="out" routerLink="/login">Log-Out</a>
 <div class="bg">
   <div class="table container">
     <table>
       <thead>
-        <th colspan="6" style="text-align: center"><h4>Candidates</h4></th>
+        <th colspan="6" style="text-align: center">
+          <h4>For City Position</h4>
+        </th>
         <tr>
           <th>Name</th>
           <th>City</th>
           <th>City Position</th>
+          <th>Votes</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let Can of gettingCityCandidate; let i = index">
+          <td>{{ Can.name }}</td>
+          <td>{{ Can.city }}</td>
+          <td>{{ Can.addcity }}</td>
+          <td>{{ Can.votes }}</td>
+          <td>
+            <button
+              [disabled]="!cli"
+              class="btn btn-light btn-sm"
+              (click)="toCityVote(i)"
+            >
+              Vote
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <th colspan="6" style="text-align: center">
+          <h4>For Country Position</h4>
+        </th>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
           <th>Country Position</th>
           <th>Votes</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let Can of gettingCandidate">
+        <tr *ngFor="let Can of gettingCountryCandidate; let i = index">
           <td>{{ Can.name }}</td>
           <td>{{ Can.city }}</td>
-          <td>{{ Can.addcity }}</td>
           <td>{{ Can.addcountry }}</td>
-          <td>{{ Can.vote }}</td>
+          <td>{{ Can.votes }}</td>
           <td>
-            <button class="btn btn-light" (click)="toVote()">Vote</button>
+            <button
+              [disabled]="!cli"
+              class="btn btn-light btn-sm"
+              (click)="toCountryVote(i)"
+            >
+              Vote
+            </button>
           </td>
         </tr>
       </tbody>

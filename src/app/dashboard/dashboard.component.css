@@ -4,8 +4,7 @@
   background: #007bb4;
   padding: 0 3%;
   display: flex;
-  justify-content: flex-start;
-  gap: 1rem;
+  justify-content: space-between;
   align-items: center;
 }
 .header h1 {
@@ -36,6 +35,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+}
+.middle {
+  margin-right: 10px;
 }
 table {
   border-collapse: collapse;
@@ -56,10 +59,25 @@ thead th {
 }
 tr td,
 tr th {
-  padding: 10px 40px;
+  padding: 10px 10px;
   border: 1px solid #eee;
 }
 tbody tr {
   background-color: #526d82;
   color: #fff;
+}
+@media (max-width: 920px) {
+  .table {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media (max-width: 470px) {
+  tr th,
+  tr td {
+    padding: 10px 2px;
+  }
 }

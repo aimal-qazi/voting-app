@@ -67,3 +67,13 @@ form button {
   color: #111;
   font-weight: 600;
 }
+@media (max-width: 522px) {
+  .card {
+    width: 400px;
+  }
+}
+@media (max-width: 405px) {
+  .card {
+    width: 320px;
+  }
+}
