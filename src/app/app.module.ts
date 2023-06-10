@@ -10,6 +10,7 @@ import { MainComponent } from './main/main.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
+import { ResultComponent } from './result/result.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { DataService } from './services/data.service';
     RegisterComponent,
     DashboardComponent,
     MainComponent,
+    ResultComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +47,10 @@ import { DataService } from './services/data.service';
       {
         path: 'main',
         component: MainComponent,
+      },
+      {
+        path: 'result',
+        component: ResultComponent,
       },
     ]),
   ],

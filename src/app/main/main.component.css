@@ -354,28 +354,22 @@ form p {
     margin: 2px;
   }
 }
-
-.edit-modal {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: #cccccc2e;
-}
-.edit-city,
-.edit-country {
-  border: 2px solid #021130;
-  padding: 10px;
-  margin: 10px;
-  width: 400px;
-  height: auto;
+.edit {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 100;
-  background-color: #d3ddec;
-  text-align: center;
-  font-family: cursive;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: transparent;
+}
+.edit .left-pos {
+  margin-top: 100px;
+  width: 30%;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 2px solid #111;
 }

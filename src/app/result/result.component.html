@@ -1,0 +1,55 @@
+<div class="header">
+  <h1 routerLink="/login">Results</h1>
+  <div class="btns">
+    <a routerLink="/dashboard" class="btn btn-light" style="margin-right: 10px"
+      >Back</a
+    >
+    <a routerLink="/login" class="btn btn-light">LogOut</a>
+  </div>
+</div>
+<div class="bg">
+  <div class="table container">
+    <table>
+      <thead>
+        <th colspan="6" style="text-align: center">
+          <h4>For City Position</h4>
+        </th>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>City Position</th>
+          <th>Votes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let can of dataofCity">
+          <td>{{ can.name }}</td>
+          <td>{{ can.city }}</td>
+          <td>{{ can.addcity }}</td>
+          <td>{{ can.votes }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <th colspan="6" style="text-align: center">
+          <h4>For Country Position</h4>
+        </th>
+        <tr>
+          <th>Name</th>
+          <th>Country</th>
+          <th>Country Position</th>
+          <th>Votes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let can of dataofCountry">
+          <td>{{ can.name }}</td>
+          <td>{{ can.city }}</td>
+          <td>{{ can.addcountry }}</td>
+          <td>{{ can.votes }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
