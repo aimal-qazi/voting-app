@@ -41,6 +41,7 @@
                   formControlName="name"
                 />
               </div>
+              <input type="hidden" formControlName="isCityCandEdit" />
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">CITY</label>
                 <select
@@ -118,6 +119,7 @@
                   formControlName="name"
                 />
               </div>
+              <input type="hidden" formControlName="isCountryCandEdit" />
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">CITY</label>
                 <select
@@ -193,6 +195,7 @@
               formControlName="name"
             />
           </div>
+          <input type="hidden" formControlName="isCityEdit" />
           <div class="pos-btns">
             <button
               class="btn btn-primary"
@@ -223,6 +226,7 @@
               formControlName="name"
             />
           </div>
+          <input type="hidden" formControlName="isCountryEdit" />
           <div class="pos-btns">
             <button
               class="btn btn-primary"
@@ -250,14 +254,35 @@
         </thead>
         <tbody>
           <tr *ngFor="let pos of city; let i = index">
-            <td>{{ pos.name }}</td>
             <td>
-              <button
-                class="btn btn-sm btn-light"
-                (click)="editCityPos(pos.name)"
-              >
-                Edit
-              </button>
+              <div *ngIf="pos.isCityEdit">
+                <input
+                  type="text"
+                  id="exampleInputEmail1"
+                  placeholder="Enter Name"
+                  aria-describedby="emailHelp"
+                  [(ngModel)]="pos.name"
+                  style="width: 130px; border: 0; outline: 0"
+                />
+              </div>
+              <div *ngIf="!pos.isCityEdit">
+                {{ pos.name }}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="pos.isCityEdit">
+                <button
+                  class="btn btn-sm btn-light"
+                  (click)="pos.isCityEdit = false"
+                >
+                  Save
+                </button>
+              </div>
+              <div *ngIf="!pos.isCityEdit">
+                <button class="btn btn-sm btn-light" (click)="onCityEdit(pos)">
+                  Edit
+                </button>
+              </div>
             </td>
             <td>
               <button class="btn btn-light btn-sm" (click)="delPosCity(i)">
@@ -280,11 +305,38 @@
         </thead>
         <tbody>
           <tr *ngFor="let pos of country; let i = index">
-            <td>{{ pos.name }}</td>
             <td>
-              <button class="btn btn-light btn-sm" (click)="editCountryPos()">
-                Edit
-              </button>
+              <div *ngIf="pos.isCountryEdit">
+                <input
+                  type="text"
+                  id="exampleInputEmail1"
+                  placeholder="Enter Name"
+                  aria-describedby="emailHelp"
+                  [(ngModel)]="pos.name"
+                  style="width: 130px; outline: 0; border: 0"
+                />
+              </div>
+              <div *ngIf="!pos.isCountryEdit">
+                {{ pos.name }}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="pos.isCountryEdit">
+                <button
+                  class="btn btn-light btn-sm"
+                  (click)="pos.isCountryEdit = false"
+                >
+                  Save
+                </button>
+              </div>
+              <div *ngIf="!pos.isCountryEdit">
+                <button
+                  class="btn btn-light btn-sm"
+                  (click)="onCountryEdit(pos)"
+                >
+                  Edit
+                </button>
+              </div>
             </td>
             <td>
               <button class="btn btn-light btn-sm" (click)="delPosCountry(i)">
@@ -298,7 +350,7 @@
 
     <!-- Show Candidates -->
 
-    <div class="table container" [hidden]="!showViewCand">
+    <div class="showCand" [hidden]="!showViewCand">
       <table>
         <thead>
           <th colspan="6" style="text-align: center">
@@ -307,27 +359,84 @@
           <tr>
             <th>Name</th>
             <th>City</th>
-            <th>City Position</th>
+            <th>
+              City<br />
+              Position
+            </th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of addingCityCandidate; let i = index">
-            <td>{{ item.name }}</td>
-            <td>{{ item.city }}</td>
-            <td>{{ item.addcity }}</td>
             <td>
-              <button
-                class="btn btn-sm btn-light"
-                (click)="editCityCandidate()"
-              >
-                Edit
-              </button>
+              <div *ngIf="item.isCityCandEdit">
+                <input
+                  type="text"
+                  id="exampleInputEmail1"
+                  placeholder="Enter Name"
+                  aria-describedby="emailHelp"
+                  [(ngModel)]="item.name"
+                  style="width: 130px; outline: 0; border: 0"
+                />
+              </div>
+              <div *ngIf="!item.isCityCandEdit">{{ item.name }}</div>
+            </td>
+            <td>
+              <div *ngIf="item.isCityCandEdit">
+                <select
+                  aria-label="Default select example"
+                  style="margin: 0"
+                  [(ngModel)]="item.city"
+                >
+                  <option value="" disabled selected hidden>Select city</option>
+                  <option *ngFor="let item of inCity" value="{{ item }}">
+                    {{ item }}
+                  </option>
+                </select>
+              </div>
+              <div *ngIf="!item.isCityCandEdit">{{ item.city }}</div>
+            </td>
+            <td>
+              <div *ngIf="item.isCityCandEdit">
+                <select
+                  aria-label="Default select example"
+                  style="margin: 0"
+                  [(ngModel)]="item.addcity"
+                >
+                  <option value="" disabled selected hidden>
+                    Select city position
+                  </option>
+                  <option *ngFor="let item of city" value="{{ item.name }}">
+                    {{ item.name }}
+                  </option>
+                </select>
+              </div>
+              <div *ngIf="!item.isCityCandEdit">
+                {{ item.addcity }}
+              </div>
+            </td>
+            <td>
+              <div *ngIf="item.isCityCandEdit">
+                <button
+                  class="btn btn-sm btn-light"
+                  (click)="item.isCityCandEdit = false"
+                >
+                  Save
+                </button>
+              </div>
+              <div *ngIf="!item.isCityCandEdit">
+                <button
+                  class="btn btn-sm btn-light"
+                  (click)="onCityCEdit(item)"
+                >
+                  Edit
+                </button>
+              </div>
             </td>
             <td>
               <button class="btn btn-light btn-sm" (click)="delCityCan(i)">
-                <i class="fa-solid fa-trash-xmark"></i> Delete
+                Delete
               </button>
             </td>
           </tr>
@@ -342,23 +451,78 @@
           <tr>
             <th>Name</th>
             <th>City</th>
-            <th>Country Position</th>
+            <th>
+              Country<br />
+              Position
+            </th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of addingCountryCandidate; let i = index">
-            <td>{{ item.name }}</td>
-            <td>{{ item.city }}</td>
-            <td>{{ item.addcountry }}</td>
             <td>
-              <button
-                class="btn btn-sm btn-light"
-                (click)="editCountryCandidate()"
-              >
-                Edit
-              </button>
+              <div *ngIf="item.isCountryCandEdit">
+                <input
+                  type="text"
+                  id="exampleInputEmail1"
+                  placeholder="Enter Name"
+                  aria-describedby="emailHelp"
+                  style="width: 130px; outline: 0; border: 0"
+                  [(ngModel)]="item.name"
+                />
+              </div>
+              <div *ngIf="!item.isCountryCandEdit">{{ item.name }}</div>
+            </td>
+            <td>
+              <div *ngIf="item.isCountryCandEdit">
+                <select
+                  aria-label="Default select example"
+                  style="margin: 0"
+                  [(ngModel)]="item.city"
+                >
+                  <option value="" disabled selected hidden>Select city</option>
+                  <option *ngFor="let item of inCity" value="{{ item }}">
+                    {{ item }}
+                  </option>
+                </select>
+              </div>
+              <div *ngIf="!item.isCountryCandEdit">{{ item.city }}</div>
+            </td>
+            <td>
+              <div *ngIf="item.isCountryCandEdit">
+                <select
+                  aria-label="Default select example"
+                  style="margin: 0"
+                  [(ngModel)]="item.addcountry"
+                >
+                  <option value="" disabled selected hidden>
+                    Select Country position
+                  </option>
+                  <option *ngFor="let item of country" value="{{ item.name }}">
+                    {{ item.name }}
+                  </option>
+                </select>
+              </div>
+              <div *ngIf="!item.isCountryCandEdit">{{ item.addcountry }}</div>
+            </td>
+            <td>
+              <div *ngIf="item.isCountryCandEdit">
+                <button
+                  class="btn btn-sm btn-light"
+                  (click)="item.isCountryCandEdit = false"
+                >
+                  Save
+                </button>
+              </div>
+              <div *ngIf="!item.isCountryCandEdit">
+                <button
+                  class="btn btn-sm btn-light"
+                  (click)="onCountryCEdit(item)"
+                >
+                  Edit
+                </button>
+              </div>
             </td>
             <td>
               <button class="btn btn-light btn-sm" (click)="delCountryCan(i)">
@@ -391,217 +555,5 @@
         </tbody>
       </table>
     </div>
-  </div>
-</div>
-
-<!-- Editing City Position -->
-<div class="edit" [hidden]="!showCityPosEdit">
-  <div class="left-pos">
-    <h3>Add City Position</h3>
-    <hr />
-    <form autocomplete="off" (ngSubmit)="updateCityPos()">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">NAME</label>
-        <input
-          type="text"
-          class="form-control"
-          id="exampleInputEmail1"
-          placeholder="Enter Name"
-          aria-describedby="emailHelp"
-          formControlName="name"
-          [(ngModel)]="cityPosName"
-        />
-      </div>
-      <div class="pos-btns">
-        <button class="btn btn-primary" type="submit">Update</button>
-        <button class="btn btn-primary" (click)="showCityPosEdit = false">
-          Close
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Edit Country Position -->
-
-<div class="edit" [hidden]="!showCountryPosEdit">
-  <div class="left-pos">
-    <h3>Add Country Position</h3>
-    <hr />
-    <form [formGroup]="countryForm" autocomplete="off">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">NAME</label>
-        <input
-          type="text"
-          class="form-control"
-          id="exampleInputEmail1"
-          placeholder="Enter Name"
-          aria-describedby="emailHelp"
-          formControlName="name"
-        />
-      </div>
-      <div class="pos-btns">
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="countryForm.invalid"
-        >
-          Update
-        </button>
-        <button class="btn btn-primary" (click)="showCountryPosEdit = false">
-          Close
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Editing Candidates For city Position -->
-
-<div class="edit" [hidden]="!showCityCandEdit">
-  <div class="left-pos">
-    <div class="text-center">
-      <h2 class="addtitle">Add City Candidate</h2>
-    </div>
-    <hr />
-    <form autocomplete="off" [formGroup]="CitycandidateForm">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">NAME</label>
-        <input
-          type="text"
-          class="form-control"
-          id="exampleInputEmail1"
-          placeholder="Enter Name"
-          aria-describedby="emailHelp"
-          formControlName="name"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">CITY</label>
-        <select
-          class="form-select"
-          aria-label="Default select example"
-          formControlName="city"
-        >
-          <option value="" disabled selected hidden>Select city</option>
-          <option *ngFor="let item of inCity" value="{{ item }}">
-            {{ item }}
-          </option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label"
-          >Select City Position</label
-        >
-        <select
-          class="form-select"
-          aria-label="Default select example"
-          formControlName="addcity"
-        >
-          <option value="" disabled selected hidden>
-            Select city position
-          </option>
-          <option *ngFor="let item of city" value="{{ item.name }}">
-            {{ item.name }}
-          </option>
-        </select>
-      </div>
-      <p
-        *ngIf="CitycandidateForm.controls['name'].errors?.['required'] || CitycandidateForm.controls['city'].errors?.['required'] || CitycandidateForm.controls['addcity'].errors?.['required'] "
-      >
-        * All fields are required
-      </p>
-      <div class="form-btn">
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="CitycandidateForm.invalid"
-          (click)="onAddCandidate()"
-        >
-          Update
-        </button>
-        <button
-          class="btn btn-primary"
-          (click)="showCityCandEdit = !showCityCandEdit"
-        >
-          Close
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- editing country candidate -->
-
-<div class="edit" [hidden]="!showCountryCandEdit">
-  <div class="left-pos">
-    <div class="text-center">
-      <h2 class="addtitle">Add Country Candidate</h2>
-    </div>
-    <hr />
-    <form autocomplete="off" [formGroup]="CountrycandidateForm">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">NAME</label>
-        <input
-          type="text"
-          class="form-control"
-          id="exampleInputEmail1"
-          placeholder="Enter Name"
-          aria-describedby="emailHelp"
-          formControlName="name"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">CITY</label>
-        <select
-          class="form-select"
-          aria-label="Default select example"
-          formControlName="city"
-        >
-          <option value="" disabled selected hidden>Select city</option>
-          <option *ngFor="let item of inCity" value="{{ item }}">
-            {{ item }}
-          </option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label"
-          >Select Country Position</label
-        >
-        <select
-          class="form-select"
-          aria-label="Default select example"
-          formControlName="addcountry"
-        >
-          <option value="" disabled selected hidden>
-            Select Country position
-          </option>
-          <option *ngFor="let item of country" value="{{ item.name }}">
-            {{ item.name }}
-          </option>
-        </select>
-      </div>
-      <p
-        *ngIf="CountrycandidateForm.controls['name'].errors?.['required'] || CountrycandidateForm.controls['city'].errors?.['required'] || CountrycandidateForm.controls['addcountry'].errors?.['required'] "
-      >
-        * All fields are required
-      </p>
-      <div class="form-btn">
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="CountrycandidateForm.invalid"
-          (click)="onAddCandidate()"
-        >
-          Update
-        </button>
-        <button
-          class="btn btn-primary"
-          (click)="showCountryCandEdit = !showCountryCandEdit"
-        >
-          Close
-        </button>
-      </div>
-    </form>
   </div>
 </div>

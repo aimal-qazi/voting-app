@@ -51,23 +51,29 @@ export class DataService {
   toGetCity: any[] = [
     {
       name: 'assembly speaker',
+      isCityEdit: false,
     },
     {
       name: 'election manager',
+      isCityEdit: false,
     },
     {
       name: 'city councelor',
+      isCityEdit: false,
     },
   ];
   toGetCountry: any[] = [
     {
       name: 'prime minister',
+      isCountryEdit: false,
     },
     {
       name: 'president',
+      isCountryEdit: false,
     },
     {
       name: 'foreign Minister',
+      isCountryEdit: false,
     },
   ];
 }

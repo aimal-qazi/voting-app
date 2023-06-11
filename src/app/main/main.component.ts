@@ -22,9 +22,6 @@ export class MainComponent implements OnInit {
   showCountryPosEdit = false;
   showCityCandEdit = false;
   showCountryCandEdit = false;
-  cityPosName = '';
-  upCityPosName = '';
-  candidatePos = '';
 
   addingCityCandidate: any[] = [];
   addingCountryCandidate: any[] = [];
@@ -70,18 +67,22 @@ export class MainComponent implements OnInit {
       city: new FormControl('', Validators.required),
       addcity: new FormControl('', Validators.required),
       votes: new FormControl(0),
+      isCityCandEdit: new FormControl(false),
     });
     this.CountrycandidateForm = this.formBuilder.group({
       name: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
       addcountry: new FormControl('', Validators.required),
       votes: new FormControl(0),
+      isCountryCandEdit: new FormControl(false),
     });
     this.countryForm = this.formBuilder.group({
       name: new FormControl('', Validators.required),
+      isCountryEdit: new FormControl(false),
     });
     this.cityForm = this.formBuilder.group({
       name: new FormControl('', Validators.required),
+      isCityEdit: new FormControl(false),
     });
   }
   toCity() {
@@ -156,26 +157,16 @@ export class MainComponent implements OnInit {
     this.showViewCand = false;
     this.showViewUser = true;
   }
-  editCityPos(name: string) {
-    this.showViewPos = false;
-    this.showCityPosEdit = !this.showCityPosEdit;
+  onCityEdit(item: any) {
+    item.isCityEdit = true;
   }
-  updateCityPos() {
-    let i = 0;
-    this.showCityPosEdit = false;
-    let currentCity = this.city.find((p) => p.name === name);
-    this.dataService.toGetCityCandidate[i].name = currentCity;
+  onCountryEdit(item: any) {
+    item.isCountryEdit = true;
   }
-  editCountryPos() {
-    this.showViewPos = false;
-    this.showCountryPosEdit = !this.showCountryPosEdit;
+  onCityCEdit(item: any) {
+    item.isCityCandEdit = true;
   }
-  editCityCandidate() {
-    this.showViewCand = false;
-    this.showCityCandEdit = !this.showCityCandEdit;
-  }
-  editCountryCandidate() {
-    this.showViewCand = false;
-    this.showCountryCandEdit = !this.showCountryCandEdit;
+  onCountryCEdit(item: any) {
+    item.isCountryCandEdit = true;
   }
 }
