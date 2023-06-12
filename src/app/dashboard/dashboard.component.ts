@@ -31,8 +31,14 @@ export class DashboardComponent implements OnInit {
   toCityVote(index: number) {
     this.dataService.toGetSignUp.forEach((a, b) => {
       if (
-        a.isVoted.includes(this.dataService.toGetCityCandidate[index].addcity)
+        a.isVoted.includes(
+          this.dataService.toGetCityCandidate[index].addcity
+        ) &&
+        b == this.dataService.toGetSignUp.length - 1
       ) {
+        alert(
+          `you already voted to ${this.dataService.toGetCityCandidate[index].addcity}`
+        );
         return;
       } else if (b == this.dataService.toGetSignUp.length - 1) {
         this.dataService.toGetSignUp[b].cityVote?.push(
@@ -45,7 +51,6 @@ export class DashboardComponent implements OnInit {
         );
       }
     });
-    this.dataService.toGetCityCandidate.sort((a, b) => b.votes - a.votes);
   }
 
   toCountryVote(index: number) {
@@ -53,8 +58,12 @@ export class DashboardComponent implements OnInit {
       if (
         a.isVoted.includes(
           this.dataService.toGetCountryCandidate[index].addcountry
-        )
+        ) &&
+        b == this.dataService.toGetSignUp.length - 1
       ) {
+        alert(
+          `you already voted to ${this.dataService.toGetCityCandidate[index].addcity}`
+        );
         return;
       } else if (b == this.dataService.toGetSignUp.length - 1) {
         this.dataService.toGetSignUp[b].countryVotes?.push(
@@ -66,9 +75,6 @@ export class DashboardComponent implements OnInit {
         );
         alert(
           `Vote Casted Successfully for ${this.dataService.toGetCountryCandidate[index].addcountry}`
-        );
-        this.dataService.toGetCountryCandidate.sort(
-          (a, b) => b.votes - a.votes
         );
       }
     });

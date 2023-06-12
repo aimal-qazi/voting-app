@@ -14,18 +14,21 @@ export class DataService {
       city: 'Islamabad',
       addcity: 'assembly speaker',
       votes: 0,
+      isCityCandEdit: false,
     },
     {
       name: 'riyaz',
       city: 'Karachi',
       addcity: 'city councelor',
       votes: 0,
+      isCityCandEdit: false,
     },
     {
       name: 'khanzada',
       city: 'Balochistan',
       addcity: 'city councelor',
       votes: 0,
+      isCityCandEdit: false,
     },
   ];
   toGetCountryCandidate: any[] = [
@@ -34,18 +37,21 @@ export class DataService {
       city: 'Rawalpindi',
       addcountry: 'president',
       votes: 0,
+      isCountryCandEdit: false,
     },
     {
       name: 'ashfaq',
       city: 'Quatta',
       addcountry: 'prime minister',
       votes: 0,
+      isCountryCandEdit: false,
     },
     {
       name: 'aimal',
       city: 'Rawalpindi',
       addcountry: 'foreign Minister',
       votes: 0,
+      isCountryCandEdit: false,
     },
   ];
   toGetCity: any[] = [
