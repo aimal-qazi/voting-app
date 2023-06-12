@@ -1,16 +1,28 @@
 <div class="header">
   <h2>Admin</h2>
-  <a routerLink="/login" class="btn btn-light">LogOut</a>
+  <button routerLink="/login" class="btn btn-light" [disabled]="hasUnsavedEdit">
+    LogOut
+  </button>
 </div>
 <div class="wrapper">
   <div class="left-con">
     <div class="box">
       <div class="left">
-        <button class="btn" (click)="show1()">Add Candidates</button>
-        <button class="btn" (click)="show2()">Add Positions</button>
-        <button class="btn" (click)="show3()">View Positions</button>
-        <button class="btn" (click)="show4()">View Candidates</button>
-        <button class="btn" (click)="show5()">View Users</button>
+        <button class="btn" (click)="show1()" [disabled]="hasUnsavedEdit">
+          Add Candidates
+        </button>
+        <button class="btn" (click)="show2()" [disabled]="hasUnsavedEdit">
+          Add Positions
+        </button>
+        <button class="btn" (click)="show3()" [disabled]="hasUnsavedEdit">
+          View Positions
+        </button>
+        <button class="btn" (click)="show4()" [disabled]="hasUnsavedEdit">
+          View Candidates
+        </button>
+        <button class="btn" (click)="show5()" [disabled]="hasUnsavedEdit">
+          View Users
+        </button>
       </div>
     </div>
   </div>
@@ -262,7 +274,7 @@
                   placeholder="Enter Name"
                   aria-describedby="emailHelp"
                   [(ngModel)]="pos.name"
-                  style="width: 130px; border: 0; outline: 0"
+                  style="width: 135px; border: 0; outline: 0"
                 />
               </div>
               <div *ngIf="!pos.isCityEdit">
@@ -271,21 +283,26 @@
             </td>
             <td>
               <div *ngIf="pos.isCityEdit">
-                <button
-                  class="btn btn-sm btn-light"
-                  (click)="pos.isCityEdit = false"
-                >
+                <button class="btn btn-sm btn-light" (click)="saveCityPos(pos)">
                   Save
                 </button>
               </div>
               <div *ngIf="!pos.isCityEdit">
-                <button class="btn btn-sm btn-light" (click)="onCityEdit(pos)">
+                <button
+                  class="btn btn-sm btn-light"
+                  (click)="onCityEdit(pos)"
+                  [disabled]="hasUnsavedEdit"
+                >
                   Edit
                 </button>
               </div>
             </td>
             <td>
-              <button class="btn btn-light btn-sm" (click)="delPosCity(i)">
+              <button
+                class="btn btn-light btn-sm"
+                (click)="delPosCity(i)"
+                [disabled]="hasUnsavedEdit"
+              >
                 Remove
               </button>
             </td>
@@ -313,7 +330,7 @@
                   placeholder="Enter Name"
                   aria-describedby="emailHelp"
                   [(ngModel)]="pos.name"
-                  style="width: 130px; outline: 0; border: 0"
+                  style="width: 135px; outline: 0; border: 0"
                 />
               </div>
               <div *ngIf="!pos.isCountryEdit">
@@ -324,7 +341,7 @@
               <div *ngIf="pos.isCountryEdit">
                 <button
                   class="btn btn-light btn-sm"
-                  (click)="pos.isCountryEdit = false"
+                  (click)="saveCountryPos(pos)"
                 >
                   Save
                 </button>
@@ -333,13 +350,18 @@
                 <button
                   class="btn btn-light btn-sm"
                   (click)="onCountryEdit(pos)"
+                  [disabled]="hasUnsavedEdit"
                 >
                   Edit
                 </button>
               </div>
             </td>
             <td>
-              <button class="btn btn-light btn-sm" (click)="delPosCountry(i)">
+              <button
+                class="btn btn-light btn-sm"
+                (click)="delPosCountry(i)"
+                [disabled]="hasUnsavedEdit"
+              >
                 Remove
               </button>
             </td>
@@ -377,7 +399,7 @@
                   placeholder="Enter Name"
                   aria-describedby="emailHelp"
                   [(ngModel)]="item.name"
-                  style="width: 130px; outline: 0; border: 0"
+                  style="width: 135px; outline: 0; border: 0"
                 />
               </div>
               <div *ngIf="!item.isCityCandEdit">{{ item.name }}</div>
@@ -386,7 +408,7 @@
               <div *ngIf="item.isCityCandEdit">
                 <select
                   aria-label="Default select example"
-                  style="margin: 0"
+                  style="margin: 0; width: 135px"
                   [(ngModel)]="item.city"
                 >
                   <option value="" disabled selected hidden>Select city</option>
@@ -401,7 +423,7 @@
               <div *ngIf="item.isCityCandEdit">
                 <select
                   aria-label="Default select example"
-                  style="margin: 0"
+                  style="margin: 0; width: 135px"
                   [(ngModel)]="item.addcity"
                 >
                   <option value="" disabled selected hidden>
@@ -420,7 +442,7 @@
               <div *ngIf="item.isCityCandEdit">
                 <button
                   class="btn btn-sm btn-light"
-                  (click)="item.isCityCandEdit = false"
+                  (click)="saveCityCand(item)"
                 >
                   Save
                 </button>
@@ -429,13 +451,18 @@
                 <button
                   class="btn btn-sm btn-light"
                   (click)="onCityCEdit(item)"
+                  [disabled]="hasUnsavedEdit"
                 >
                   Edit
                 </button>
               </div>
             </td>
             <td>
-              <button class="btn btn-light btn-sm" (click)="delCityCan(i)">
+              <button
+                class="btn btn-light btn-sm"
+                (click)="delCityCan(i)"
+                [disabled]="hasUnsavedEdit"
+              >
                 Delete
               </button>
             </td>
@@ -468,7 +495,7 @@
                   id="exampleInputEmail1"
                   placeholder="Enter Name"
                   aria-describedby="emailHelp"
-                  style="width: 130px; outline: 0; border: 0"
+                  style="width: 135px; outline: 0; border: 0"
                   [(ngModel)]="item.name"
                 />
               </div>
@@ -478,7 +505,7 @@
               <div *ngIf="item.isCountryCandEdit">
                 <select
                   aria-label="Default select example"
-                  style="margin: 0"
+                  style="margin: 0; width: 135px"
                   [(ngModel)]="item.city"
                 >
                   <option value="" disabled selected hidden>Select city</option>
@@ -493,7 +520,7 @@
               <div *ngIf="item.isCountryCandEdit">
                 <select
                   aria-label="Default select example"
-                  style="margin: 0"
+                  style="margin: 0; width: 135px"
                   [(ngModel)]="item.addcountry"
                 >
                   <option value="" disabled selected hidden>
@@ -510,7 +537,7 @@
               <div *ngIf="item.isCountryCandEdit">
                 <button
                   class="btn btn-sm btn-light"
-                  (click)="item.isCountryCandEdit = false"
+                  (click)="saveCountryCand(item)"
                 >
                   Save
                 </button>
@@ -519,13 +546,18 @@
                 <button
                   class="btn btn-sm btn-light"
                   (click)="onCountryCEdit(item)"
+                  [disabled]="hasUnsavedEdit"
                 >
                   Edit
                 </button>
               </div>
             </td>
             <td>
-              <button class="btn btn-light btn-sm" (click)="delCountryCan(i)">
+              <button
+                class="btn btn-light btn-sm"
+                (click)="delCountryCan(i)"
+                [disabled]="hasUnsavedEdit"
+              >
                 Delete
               </button>
             </td>

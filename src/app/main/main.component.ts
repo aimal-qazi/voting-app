@@ -22,6 +22,7 @@ export class MainComponent implements OnInit {
   showCountryPosEdit = false;
   showCityCandEdit = false;
   showCountryCandEdit = false;
+  hasUnsavedEdit = false;
 
   addingCityCandidate: any[] = [];
   addingCountryCandidate: any[] = [];
@@ -158,15 +159,59 @@ export class MainComponent implements OnInit {
     this.showViewUser = true;
   }
   onCityEdit(item: any) {
+    this.city.forEach((element) => {
+      element.isCityEdit = false;
+    });
     item.isCityEdit = true;
+    if (this.hasUnsavedEdit == false) {
+      this.hasUnsavedEdit = true;
+    } else {
+      this.hasUnsavedEdit = false;
+    }
   }
   onCountryEdit(item: any) {
+    this.country.forEach((element) => {
+      element.isCountryEdit = false;
+    });
     item.isCountryEdit = true;
+    if (this.hasUnsavedEdit == false) {
+      this.hasUnsavedEdit = true;
+    } else {
+      this.hasUnsavedEdit = false;
+    }
   }
   onCityCEdit(item: any) {
+    this.addingCityCandidate.forEach((element) => {
+      element.isCityCandEdit = false;
+    });
     item.isCityCandEdit = true;
+    this.hasUnsavedEdit = !this.hasUnsavedEdit;
   }
   onCountryCEdit(item: any) {
+    this.addingCountryCandidate.forEach((element) => {
+      element.isCountryCandEdit = false;
+    });
     item.isCountryCandEdit = true;
+    if (this.hasUnsavedEdit == false) {
+      this.hasUnsavedEdit = true;
+    } else {
+      this.hasUnsavedEdit = false;
+    }
+  }
+  saveCityPos(item: any) {
+    item.isCityEdit = false;
+    this.hasUnsavedEdit = false;
+  }
+  saveCountryPos(item: any) {
+    item.isCountryEdit = false;
+    this.hasUnsavedEdit = false;
+  }
+  saveCityCand(item: any) {
+    item.isCityCandEdit = false;
+    this.hasUnsavedEdit = false;
+  }
+  saveCountryCand(item: any) {
+    item.isCountryCandEdit = false;
+    this.hasUnsavedEdit = false;
   }
 }
